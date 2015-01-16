@@ -1,3 +1,1 @@
-angular.module('aplicacion', [
-   'buscador'
-]);
+angular.module('aplicacion', []);
