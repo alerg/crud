@@ -1,14 +1,13 @@
-var aplicacion = angular.module('aplicacion', ['ngRouter']);
+var app = angular.module('app', ['ngRoute']);
 
-aplicacion.config(['$routeProvider',
+app.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
       when('/editar', {
         controller: 'Editor'
       }).
-      when('/phones/:phoneId', {
-        templateUrl: 'partials/phone-detail.html',
-        controller: 'PhoneDetailCtrl'
+      when('/buscar', {
+        controller: 'Buscador'
       }).
       otherwise({
         redirectTo: '/phones'

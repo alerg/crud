@@ -1,27 +1,17 @@
-aplicacion.controller('Buscador', function($scope, $http, $rootScope) {
+app.controller('Buscador', function($scope, employeeModel, $rootScope) {
 
-  $scope.template = '/javascripts/templates/buscador.html';
+   $scope.template = '/javascripts/views/buscador.html';
 
-  $scope.buscarEmpleados = function() {
-      $http({
-         method: 'GET',
-         url: '/buscar',
-         params: {
-            nombre : this.nombre == "" ? null : this.nombre,
-            apellido : this.apellido == "" ? null : this.apellido,
-            paseo : this.paseo == "" ? null : this.paseo,
-            puesto : this.puesto == "" ? null : this.puesto
-         }
-      }).
-      success(function(data) {
-         if(typeof(data) == 'object'){
-            $rootScope.$emit('someEvent', data);
-         }else{
-            alert('Error al intentar recuperar el cliente.');
-         } 
-      }).
-      error(function() {
-         alert('Error al intentar recuperar el cliente.');
+   $scope.buscarEmpleados = function() {
+
+      employeeModel.nombre = this.nombre == "" ? null : this.nombre,
+      employeeModel.apellido = this.apellido == "" ? null : this.apellido,
+      employeeModel.paseo = this.paseo == "" ? null : this.paseo,
+      employeeModel.puesto = this.puesto == "" ? null : this.puesto
+
+      employeeModel.getEmployee(function (data){
+         $rootScope.$emit('someEvent', data);
       });
+      
    };
 });

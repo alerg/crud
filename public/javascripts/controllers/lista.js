@@ -1,6 +1,6 @@
-aplicacion.controller('ListaEmpleados', function($scope, $http, $rootScope) {
+app.controller('ListaEmpleados', function($scope, $http, $rootScope) {
 
-   $scope.template = '/javascripts/templates/lista.html';
+   $scope.template = '/javascripts/views/lista.html';
 
    $scope.empleados = [];
 

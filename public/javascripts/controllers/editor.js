@@ -1,6 +1,6 @@
-angular.module('aplicacion').controller('Editor', function($scope, $http, $rootScope) {
+angular.module('app').controller('Editor', function($scope, $http, $rootScope, employeeModel) {
    
-   $scope.template = '/javascripts/templates/editor.html';
+   $scope.template = '/javascripts/views/editor.html';
 
    $scope._id = null;
    $scope.nombre = '';
@@ -8,92 +8,28 @@ angular.module('aplicacion').controller('Editor', function($scope, $http, $rootS
    $scope.paseo = '';
    $scope.puesto = '';
    $scope.telefono = '';
-   $scope.hide = 'true';   
 
-   $rootScope.$on('someEvent', function(event, args) {
-      $scope.hide = 'true';
-      $scope.empleados = args;
-   });
-
-   $scope.cargarEmpleados = function(){
-      $http({
-         method: 'GET', url: '/listar'
-      }).
-      success(function(data) {
+   $scope.cargarEmpleado = function(){
+      employeeModel.getEmployeeById(index, function(data){
          if(typeof(data) == 'object'){
-            $scope.empleados = data;
+            $scope = data;
          }else{
-            alert('Error al intentar recuperar los clientes.');
+            alert('Error al intentar recuperar al cliente.');
          }
-      }).
-      error(function() {
-         alert('Error al intentar recuperar los clientes.');
       });
    };
+
    $scope.guardarEmpleado = function() {
-      $http({
-         method: 'POST',
-         url: '/guardar',
-         params: {
-            nombre: $scope.nombre,
-            apellido: $scope.apellido,
-            telefono: $scope.telefono,
-            paseo: $scope.paseo,
-            puesto: $scope.puesto,
-            _id: $scope._id
-         }
-      }).
-      success(function(data) {
-         if(typeof(data) == 'object'){
+      employeeModel.push(function(success){
+         if(success){
             $scope.limpiarDatos();
             $scope.cargarEmpleados(); 
          }else{
-            alert('Error al intentar guardar el cliente.');
-         }
-      }).
-      error(function() {
-         alert('Error al intentar guardar el cliente.');
+            alert("Sucedio un error al guardar. intentelo nuevamente");
+         }         
       });
    };
-   $scope.recuperarEmpleado = function(indice) {
-      $http({
-         method: 'GET',
-         url: '/recuperar',
-         params: {
-            _id: indice
-         }
-      }).
-      success(function(data) {
-         if(typeof(data) == 'object'){
-            $scope.clientes = data;
-         }else{
-            alert('Error al intentar recuperar los clientes.');
-         }
-      }).
-      error(function() {
-         alert('Error al intentar recuperar el cliente.');
-      });
-   };
-   $scope.eliminarEmpleado = function(indice) {
-      $http({
-         method: 'POST',
-         url: '/eliminar',
-         params: {
-            _id: indice
-         }
-      }).
-      success(function(data) {
-         if(data == 'Ok'){
-            $scope.limpiarDatos();
-            $scope.cargarEmpleados();
-         }else{
-            alert('Error al intentar eliminar el cliente.');
-         } 
-      }).
-      error(function() {
-         alert('Error al intentar eliminar el cliente.');
-      });
-   };
+
    $scope.limpiarDatos = function() {
       $scope._id = null;
       $scope.nombre = '';
