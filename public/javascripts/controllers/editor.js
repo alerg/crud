@@ -1,18 +1,19 @@
-angular.module('aplicacion').controller('EmpleadosAct', function($scope, $http, $rootScope) {
+angular.module('aplicacion').controller('Editor', function($scope, $http, $rootScope) {
    
+   $scope.template = '/javascripts/templates/editor.html';
+
    $scope._id = null;
    $scope.nombre = '';
    $scope.apellido = ''
    $scope.paseo = '';
    $scope.puesto = '';
    $scope.telefono = '';
+   $scope.hide = 'true';   
 
-   $scope.empleados = [];
-
-    $rootScope.$on('someEvent', function(event, args) {
+   $rootScope.$on('someEvent', function(event, args) {
+      $scope.hide = 'true';
       $scope.empleados = args;
-    });
-  // another controller or even directive
+   });
 
    $scope.cargarEmpleados = function(){
       $http({

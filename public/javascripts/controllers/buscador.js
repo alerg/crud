@@ -1,31 +1,16 @@
-var aplicacion = angular.module('aplicacion', ['ngRoute']);
+aplicacion.controller('Buscador', function($scope, $http, $rootScope) {
 
+  $scope.template = '/javascripts/templates/buscador.html';
 
-aplicacion.config(['$routeProvider', function($routeProvider) {
-  $routeProvider.when('/', {
-    templateUrl: 'templates/buscador.html',
-    controller: 'BuscadorCtrl'
-  });
-}]);
-
-/*
-aplicacion.config(function($stateProvider){
-    $stateProvider.state('buscador', {
-      url: "",
-      templateUrl: "templates/buscador.html"
-    })
-});*/
-
-aplicacion.controller('BuscadorCtrl', function($scope, $http, $rootScope) {
-   $scope.buscarEmpleados = function() {
+  $scope.buscarEmpleados = function() {
       $http({
          method: 'GET',
          url: '/buscar',
          params: {
-            nombre : $scope.nombre,
-            apellido : $scope.apellido,
-            paseo : $scope.paseo,
-            puesto : $scope.puesto
+            nombre : this.nombre == "" ? null : this.nombre,
+            apellido : this.apellido == "" ? null : this.apellido,
+            paseo : this.paseo == "" ? null : this.paseo,
+            puesto : this.puesto == "" ? null : this.puesto
          }
       }).
       success(function(data) {

@@ -4,14 +4,24 @@
       <meta charset="utf-8" />
       <title> Empleados </title>
       <link type="text/css" href="/stylesheets/bootstrap.min.css" rel="stylesheet" />
-      <script type="text/javascript" src="/javascripts/angular.min.js"></script>
-      <script src="/javascripts/angular-route.js"></script>
+      <script type="text/javascript" src="/javascripts/angular.js"></script>
+      <script src="/javascripts/angular-router.js"></script>
 
       <script type="text/javascript" src="/javascripts/script.js"></script>
       <script src="/javascripts/controllers/buscador.js"></script>
+      <script src="/javascripts/controllers/lista.js"></script>
+      <script src="/javascripts/controllers/editor.js"></script>
    </head>
    <body>
       <h1> Empleados </h1>
-      <div class="container" ng-controller="BuscadorCtrl"></div>
+      <div class="container" ng-controller="Buscador">
+         <ng-include src="template"></ng-include>
+      </div>
+      <div class="container" ng-controller="ListaEmpleados">
+         <ng-include src="template"></ng-include>
+      </div>
+      <div class="container" ng-controller="Editar" ng-hide="hide">
+         <ng-include src="template"></ng-include>
+      </div>
    </body>
 </html>
