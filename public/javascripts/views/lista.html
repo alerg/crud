@@ -17,7 +17,7 @@
          <td> {{item.telefono}} </td>
          <td> {{item.paseo}} </td>
          <td> {{item.puesto}} </td>
-         <td> <a href="javascript:void(0);" class="btn btn-info" ng-click="recuperarEmpleado(item._id)"> Editar </a> </td>
+         <td> <a href="#editar/{{item._id}}" class="btn btn-info"> Editar </a> </td>
          <td> <a href="javascript:void(0);" class="btn btn-danger" ng-click="eliminarEmpleado(item._id)"> Eliminar </a> </td>
        </tr>
     </tbody>

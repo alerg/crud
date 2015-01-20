@@ -4,12 +4,8 @@ app.config(['$routeProvider',
   function($routeProvider) {
     $routeProvider.
       when('/editar', {
+        templateUrl: 'app/editar.html',
         controller: 'Editor'
-      }).
-      when('/buscar', {
-        controller: 'Buscador'
-      }).
-      otherwise({
-        redirectTo: '/phones'
-      });
-  }]);
+      })
+  }
+]);

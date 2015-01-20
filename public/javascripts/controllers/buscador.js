@@ -12,6 +12,5 @@ app.controller('Buscador', function($scope, employeeModel, $rootScope) {
       employeeModel.getEmployee(function (data){
          $rootScope.$emit('someEvent', data);
       });
-      
-   };
+   }
 });

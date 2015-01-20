@@ -10,16 +10,11 @@
       <script type="text/javascript" src="/javascripts/app.js"></script>
 
       <script type="text/javascript" src="/javascripts/models/employee.js"></script>
-      <script src="/javascripts/controllers/buscador.js"></script>
-      <script src="/javascripts/controllers/lista.js"></script>
       <script src="/javascripts/controllers/editor.js"></script>
    </head>
    <body>
-      <h1> Empleados </h1>
-      <div class="container" ng-controller="Buscador">
-         <ng-include src="template"></ng-include>
-      </div>
-      <div class="container" ng-controller="ListaEmpleados">
+      <h1>Empleados</h1>
+      <div class="container" ng-controller="Editor">
          <ng-include src="template"></ng-include>
       </div>
    </body>

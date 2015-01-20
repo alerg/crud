@@ -1,23 +1,21 @@
-angular.module('app').controller('Editor', function($scope, $http, $rootScope, employeeModel) {
+angular.module('app').controller('Editor', function($scope, $routeParams, employeeModel) {
    
    $scope.template = '/javascripts/views/editor.html';
 
-   $scope._id = null;
+   $scope._id = $routeParams.index || null;
    $scope.nombre = '';
    $scope.apellido = ''
    $scope.paseo = '';
    $scope.puesto = '';
    $scope.telefono = '';
 
-   $scope.cargarEmpleado = function(){
-      employeeModel.getEmployeeById(index, function(data){
-         if(typeof(data) == 'object'){
-            $scope = data;
-         }else{
-            alert('Error al intentar recuperar al cliente.');
-         }
-      });
-   };
+   employeeModel.getEmployeeById($scope._id, function(data){
+      if(typeof(data) == 'object'){
+         $scope = data;
+      }else{
+         alert('Error al intentar recuperar al cliente.');
+      }
+   });
 
    $scope.guardarEmpleado = function() {
       employeeModel.push(function(success){
