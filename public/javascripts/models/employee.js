@@ -1,4 +1,5 @@
 app.service("employeeModel", function($http){
+   this._id = ''; 
    this.nombre = '';
    this.apellido = '';
    this.paseo = '';
@@ -14,8 +15,13 @@ app.service("employeeModel", function($http){
             _id: index
          }
       }).
-      success(function() {
-         cb({});
+      success(function(data) {
+         if(data.length == 1){
+            cb(data[0]);
+         }else{
+            console.log('Error al intentar recuperar el empleado.');
+            cb(null, {});
+         }
       }).
       error(function() {
          console.log('Error al intentar recuperar el empleado.');

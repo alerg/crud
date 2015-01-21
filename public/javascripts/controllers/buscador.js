@@ -1,7 +1,5 @@
 app.controller('Buscador', function($scope, employeeModel, $rootScope) {
 
-   $scope.template = '/javascripts/views/buscador.html';
-
    $scope.buscarEmpleados = function() {
 
       employeeModel.nombre = this.nombre == "" ? null : this.nombre,

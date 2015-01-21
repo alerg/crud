@@ -1,7 +1,5 @@
 angular.module('app').controller('Editor', function($scope, $routeParams, employeeModel) {
    
-   $scope.template = '/javascripts/views/editor.html';
-
    $scope._id = $routeParams.index || null;
    $scope.nombre = '';
    $scope.apellido = ''
@@ -11,17 +9,26 @@ angular.module('app').controller('Editor', function($scope, $routeParams, employ
 
    employeeModel.getEmployeeById($scope._id, function(data){
       if(typeof(data) == 'object'){
-         $scope = data;
+         $scope.nombre = data.nombre;
+         $scope.apellido = data.apellido;
+         $scope.paseo = data.paseo;
+         $scope.puesto = data.puesto;
+         $scope.telefono = data.telefono;
       }else{
          alert('Error al intentar recuperar al cliente.');
       }
    });
 
    $scope.guardarEmpleado = function() {
+      employeeModel._id = $routeParams.index;
+      employeeModel.nombre = $scope.nombre;
+      employeeModel.apellido = $scope.apellido;
+      employeeModel.paseo = $scope.paseo;
+      employeeModel.puesto = $scope.puesto;
+      employeeModel.telefono = $scope.telefono;
       employeeModel.push(function(success){
          if(success){
-            $scope.limpiarDatos();
-            $scope.cargarEmpleados(); 
+            alert('Datos actualizados.');
          }else{
             alert("Sucedio un error al guardar. intentelo nuevamente");
          }         
