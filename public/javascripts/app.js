@@ -9,6 +9,10 @@ app.config(['$routeProvider',
 			when('/editar/:index', {
 				templateUrl: 'javascripts/views/editor.html',
 				controller: 'Editor'
+			}).
+			when('/login', {
+				templateUrl: 'javascripts/views/Login.html',
+				controller: 'Login'
 			})
   }
 ]);

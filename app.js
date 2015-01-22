@@ -4,9 +4,12 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var security = require('security-middleware');
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+//var routes = require('./routes/index');
+//var users = require('./routes/users');
+
+var users = require('./mongoose');
 
 var app = express();
 
@@ -23,10 +26,37 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
+//#######################SEGURIDAD
+app.use(security({ 
+  debug : false, // for debug purpose
+  realmName : 'Express-security', // realm name
+  secure : true, // whether to use secured cookies or not - false by default
+  credentialsMatcher: 'sha256', // a credentialsMatcher must be provided to check if the provided token credentials match the stored account credentials using the encryption algorithm specified
+  loginUrl : '/login', // url used by the application to sign in - `/login` by default
+  usernameParam : 'username', // name of the username parameter which will be used during form authentication - `username` by default
+  passwordParam : 'password', // name of the password parameter which will be used during form authentication - `password` by default
+  logoutUrl : '/logout', // url used by the application to sign out - `/logout` by default
+  acl : [ // array of Access Controls to apply per url
+    {
+      url : '/', // web resource (s) on which this access control will be applied - `/*` if none specified
+      methods : 'GET, POST', // HTTP method (s) for which this access control will be applied (GET, POST, PUT, DELETE or * for ALL) - `*` by default
+      authentication : 'FORM', // authentication type - FORM or BASIC
+      rules : '([role=user] && [permission=searcher])' // access control rules to check
+    }
+  ]
+}));
+
 //#######################ACCIONES
 
+/*
 app.get('/', function(req, res){
+   console.log('Express /');
    res.sendfile('./public/javascripts/app/index.html');
+});
+*/
+
+app.get('/login', function(req, res){
+  res.render('login', { username: req.param('username'), redirect : req.param('redirect') });
 });
 
 app.get('/buscar', function(req, res){
@@ -157,25 +187,3 @@ var server = app.listen(3000, function () {
 
 
 module.exports = app;
-
-
-//Conexión a Mongoose.
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://aleg:31824131@dogen.mongohq.com:10031/crud', function(error){
-   if(error){
-      throw error; 
-   }else{
-      console.log('Conectado a MongoDB');
-   }
-});
-
-//Documentos
-var ClienteSchema = mongoose.Schema({
-   nombre: String,
-   apellido: String,
-   domicilio: String,
-   telefono: String,
-   paseo: String,
-   puesto: String
-});
-var Cliente = mongoose.model('Cliente', ClienteSchema);
