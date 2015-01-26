@@ -1,19 +1,18 @@
 {
-  "name": "crud",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "start": "node ./bin/www"
+  "name": "zetam-boilerplate",
+  "engines": {
+    "node": "0.10.32"
   },
+  "version": "0.0.1",
+  "main": "app.js",
   "dependencies": {
-    "body-parser": "~1.10.1",
-    "cookie-parser": "~1.3.3",
-    "debug": "~2.1.1",
-    "express": "~4.11.0",
-    "jade": "~1.9.0",
-    "morgan": "~1.5.1",
-    "serve-favicon": "~2.2.0",
-    "mongoose": "*",
-    "angular-route": "*"
-  }
+    "connect-livereload": "^0.4.0",
+    "cookie-parser": "^1.3.2",
+    "express": "^4.8.2",
+    "gulp": "^3.8.7",
+    "zetam": "latest",
+    "zetam-client": "latest"
+  },
+  "devDependencies": {},
+  "author": ""
 }
