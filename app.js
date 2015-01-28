@@ -5,7 +5,7 @@ var port = process.env.PORT || 3004;
 var cookieParser = require('cookie-parser');
 var security = require('security-middleware');
 
-var users = require('./config/mongoose');
+var mongoose = require('./config/mongoose');
 
 app.use(cookieParser('asdfghjkl'));
 
@@ -14,6 +14,7 @@ app.use(cookieParser('asdfghjkl'));
 app.use(security({ 
   debug : false, // for debug purpose
   realmName : 'Express-security', // realm name
+  store: mongoose.store,
   secure : true, // whether to use secured cookies or not - false by default
   credentialsMatcher: 'sha256', // a credentialsMatcher must be provided to check if the provided token credentials match the stored account credentials using the encryption algorithm specified
   loginUrl : '/login', // url used by the application to sign in - `/login` by default

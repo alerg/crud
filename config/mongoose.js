@@ -74,11 +74,13 @@ var Store = function(){
  * @returns the user mapped to this username or null  within the callback
  * @throws any error within the callback
  */
-Store.prototype.lookupe = function(username, callback) {
-    console.log("username: " + username);
+Store.prototype.lookup = function(username, callback) {
+    console.log("Store.prototype.lookup: " + username);
     this.User.findOne({
         login:username
     }, 'login password', {}, function(err, doc){
+        console.log("err: " + err);
+        console.log("doc: " + doc);
         if(err){
             callback(err);
         }
@@ -166,4 +168,4 @@ Store.prototype.loadRolePrivileges = function(roleName, callback) {
     });
 };
 
-var store = new Store();
+exports.store = new Store();
