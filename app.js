@@ -3,9 +3,35 @@ var app = express();
 var z = require('zetam');
 var port = process.env.PORT || 3004;
 var cookieParser = require('cookie-parser');
+var security = require('security-middleware');
 
+var users = require('./config/mongoose');
 
 app.use(cookieParser('asdfghjkl'));
+
+//#######################SEGURIDAD
+
+app.use(security({ 
+  debug : false, // for debug purpose
+  realmName : 'Express-security', // realm name
+  secure : true, // whether to use secured cookies or not - false by default
+  credentialsMatcher: 'sha256', // a credentialsMatcher must be provided to check if the provided token credentials match the stored account credentials using the encryption algorithm specified
+  loginUrl : '/login', // url used by the application to sign in - `/login` by default
+  usernameParam : 'username', // name of the username parameter which will be used during form authentication - `username` by default
+  passwordParam : 'password', // name of the password parameter which will be used during form authentication - `password` by default
+  logoutUrl : '/logout', // url used by the application to sign out - `/logout` by default
+  acl : [ // array of Access Controls to apply per url
+    {
+      url : '/', // web resource (s) on which this access control will be applied - `/*` if none specified
+      methods : 'GET, POST', // HTTP method (s) for which this access control will be applied (GET, POST, PUT, DELETE or * for ALL) - `*` by default
+      authentication : 'BASIC', // authentication type - FORM or BASIC
+      rules : '([role=admin])' // access control rules to check
+    }
+  ]
+}));
+
+//#######################SEGURIDAD FIN
+
 
 app.use(function(req,res,next){
 	req.config = {}
