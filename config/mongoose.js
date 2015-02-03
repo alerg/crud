@@ -41,10 +41,7 @@ mongoose.model('Role', roleSchema);
 
 var userSchema = new Schema(
     { 
-        login: { 
-            'type': String, 
-            index : true
-        }, 
+        login:  String, 
         password: String, 
         roles: [{ 
             'type' : String, 
@@ -75,12 +72,9 @@ var Store = function(){
  * @throws any error within the callback
  */
 Store.prototype.lookup = function(username, callback) {
-    console.log("Store.prototype.lookup: " + username);
     this.User.findOne({
         login:username
-    }, 'login password', {}, function(err, doc){
-        console.log("err: " + err);
-        console.log("doc: " + doc);
+    }, function(err, doc){
         if(err){
             callback(err);
         }
